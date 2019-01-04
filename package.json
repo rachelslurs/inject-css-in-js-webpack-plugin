@@ -1,0 +1,37 @@
+{
+  "name": "inject-css-in-js-webpack-plugin",
+  "version": "1.0.0",
+  "description": "A webpack plugin to convert an external stylesheet to an embedded stylesheet in JS",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "scripts": {
+    "build": "rm -rf ./build && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rachelslurs/inject-css-in-js-webpack-plugin.git"
+  },
+  "keywords": [
+    "webpack4",
+    "webpack-plugin",
+    "inline",
+    "internal",
+    "javascript",
+    "embedded",
+    "document",
+    "css",
+    "stylesheet"
+  ],
+  "author": "rachelslurs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rachelslurs/inject-css-in-js-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/rachelslurs/inject-css-in-js-webpack-plugin#readme",
+  "devDependencies": {
+    "@types/webpack": "^4.4.0",
+    "tslib": "^1.9.3",
+    "typescript": "^3.2.2",
+    "webpack": "^4.11.1"
+  }
+}
