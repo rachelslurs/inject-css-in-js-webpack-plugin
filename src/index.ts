@@ -1,4 +1,5 @@
 import { Compiler, Configuration } from 'webpack';
+import addStyles from './lib/addStyles'
 
 type File = {
     [key: string]: string
@@ -15,7 +16,7 @@ interface Compilation {
 
 interface ReplaceConfig {
     fileTarget?: string
-    target?: string
+    target: string
 }
 
 interface Config {
@@ -29,21 +30,17 @@ const DEFAULT_REPLACE_CONFIG: ReplaceConfig = {
 };
 
 export default class Plugin {
+
+    
     static addStyle(js: string, style: string, replaceConfig: ReplaceConfig) {
-        const styleTag = document.createElement('style');
-        styleTag.type = 'text/css';
-        const styleString = styleTag.appendChild(document.createTextNode(style));
-        
+        const styleString = `var styleTag = document.createElement('style'); styleTag.type = 'text/css'; styleTag.appendChild(document.createTextNode(${style})); var headTag=(document.getElementsByTagName('head'); headTag.appendChild(styleTag); `;
         const replaceValues = [styleString, replaceConfig.target];
-
-        // if (replaceConfig.position === 'after') {
-        //     replaceValues.reverse()
-        // }
-
+        console.log(js.replace(replaceConfig.target, replaceValues.join('')))
         return js.replace(replaceConfig.target, replaceValues.join(''));
     }
 
     static cleanUp(js: string, replaceConfig: ReplaceConfig) {
+        // console.log(js, 'js')
         return js;
     }
 
@@ -54,6 +51,7 @@ export default class Plugin {
     constructor(private readonly config: Config = {}) { }
 
     private filter(filename: string): boolean {
+        // console.log(filename, 'filename')
         if (typeof this.config.filter === 'function') {
             return this.config.filter(filename);
         } else {
@@ -65,16 +63,17 @@ export default class Plugin {
         const isCSS = is('css');
         const isJS = is('js');
 
+        // console.log(assets, 'assets')
+
         Object.keys(assets).forEach((filename) => {
+            // console.log(filename, 'filename')
             if (isCSS(filename)) {
-                console.log(filename, 'css')
                 const doesCurrentFileNeedToBeAddedToJs = this.filter(filename);
                 if (doesCurrentFileNeedToBeAddedToJs) {
                     this.css[filename] = assets[filename].source();
                     delete assets[filename];
                 }
             } else if (isJS(filename)) {
-                console.log(filename, 'js')
                 this.js[filename] = assets[filename].source();
             }
         });
@@ -82,17 +81,21 @@ export default class Plugin {
 
     private process({ assets }: Compilation, { output }: Configuration) {
         const publicPath = (output && output.publicPath) || '';
-        console.log(publicPath)
+        console.log(publicPath, 'publicPath')
+        // console.log(assets, 'assets')
+        console.log(output, 'output')
         const { replace: replaceConfig = DEFAULT_REPLACE_CONFIG } = this.config;
 
         Object.keys(this.js).forEach((jsFileName) => {
             let js = this.js[jsFileName];
 
             Object.keys(this.css).forEach((key) => {
+                // console.log('thiscsskey', this.css[key])
                 js = Plugin.addStyle(js, this.css[key], replaceConfig);
             });
 
             js = Plugin.cleanUp(js, replaceConfig);
+            // console.log('final!!', js)
 
             assets[jsFileName] = {
                 source() { return js },

@@ -1,6 +1,6 @@
 {
   "name": "inject-css-in-js-webpack-plugin",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "A webpack plugin to convert an external stylesheet to an embedded stylesheet in JS",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
