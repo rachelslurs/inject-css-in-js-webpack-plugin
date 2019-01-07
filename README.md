@@ -2,9 +2,9 @@
 A webpack plugin to convert an external stylesheet to an embedded stylesheet in JS
 
 # html-inline-css-webpack-plugin
-[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+<!--[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/rachelslurs/inject-css-in-js-webpack-plugin/pulls)
-<!-- [![npm version](https://badge.fury.io/js/html-inline-css-webpack-plugin.svg)](https://badge.fury.io/js/html-inline-css-webpack-plugin) -->
+ [![npm version](https://badge.fury.io/js/html-inline-css-webpack-plugin.svg)](https://badge.fury.io/js/html-inline-css-webpack-plugin)
 
 A webpack plugin to convert an external stylesheet to an embedded stylesheet in JS. Heavily inspired by [HtmlInlineCSSWebpackPlugin](https://github.com/Runjuu/html-inline-css-webpack-plugin) which is for making CSS internal in HTML files as opposed to JS files.
 
@@ -129,3 +129,6 @@ ReactDOM.render(
 ###### Output:
 ```javascript
 ```
+ -->
+ 
+ Work in progress!
